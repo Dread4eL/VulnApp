@@ -6,10 +6,10 @@ app = Flask(__name__,template_folder='./templates')
 
 # Database Configuration
 db_config = {
-    'user': 'user',        # Your MySQL username
+    'user': 'NewUser',        # Your MySQL username
     'password': 'pouet',        # Your MySQL password
     'host': 'localhost',
-    'database': 'testdb'   # Your database name
+    'database': 'testDBusers'   # Your database name
 }
 '''
 @app.route('/')
@@ -213,5 +213,4 @@ def admin_search():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
-
+    app.run(host='0.0.0.0', port=5000, debug=True)
