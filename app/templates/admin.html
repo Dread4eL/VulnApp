@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Page{% endblock %}
+
+{% block content %}
+    <h1>Admin Page</h1>
+    <p>{{ msg }}</p>
+    <h2>Add User</h2>
+    <form action='/admin/add' method="post" name="add">
+        <input type="text" name="firstName" placeholder="First Name" required>
+        <input type="text" name="lastName" placeholder="Last Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="number" name="isAdmin" placeholder="isAdmin" required>
+        <button type="submit">Add</button>
+    </form>
+    </form>
+
+    {% if msg_add%}
+        {% print(msg_add) %}
+    {% endif%}
+
+    <h2>Delete User</h2>
+    <form action='/admin/del' method="post" name="delete">
+        User ID: <input type="text" name="user_id"><br>
+        <button type="submit">Delete</button>
+    </form>
+
+    {% if msg_del%}
+        {% print(msg_del) %}
+    {% endif%}
+
+    <h2>Search User by Username</h2>
+    <form action='/admin/search' method="post" name="search">
+        Username: <input type="text" name="username"><br>
+        <button type="submit">Search</button>
+    </form>
+
+    {% if users %}
+        <h3>Search Results:</h3>
+        <ul>
+            {% for user in users %}
+                <li>ID: {{ user.id }},First Name: {{ user.firstName }},Last Name: {{ user.lastName }}, Email: {{ user.email }}, Username: {{ user.username }}, Password: {{ user.password }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+{% endblock %}
