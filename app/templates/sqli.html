@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>SQL Injection Challenge</title>
-</head>
-<body>
-    <h1>SQL Injection Challenge</h1>
-    <p>Try to find and exploit the SQL injection vulnerability!</p>
-    <form method="POST" action="/search">  </form> 
-    </body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}SQL Injection Challenge{% endblock %}
+
+{% block content %}
+<h1>SQL Injection Challenge</h1>
+<p>Try to find and exploit the SQL injection vulnerability!</p>
+<form method="POST" action="/search">
+  <input type="text" name="username" placeholder="Enter Username">
+  <button type="submit">Search</button>
+</form>
+{% endblock %}

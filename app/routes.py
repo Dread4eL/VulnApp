@@ -2,7 +2,28 @@ from flask import render_template, request, redirect
 from app import app 
 import mysql.connector
 import logging
+import logstash
+import socket
+import json
 
+# Custom JSON Formatter
+class CustomLogstashFormatter(logging.Formatter):
+    def format(self, record):
+        log = {
+            'timestamp': self.formatTime(record, self.datefmt),
+            'level': record.levelname,
+            'message': record.getMessage(),
+            'module': record.module,
+            'funcName': record.funcName,
+            'lineno': record.lineno,
+            'app_name': 'webapp',  # Add context like app name
+        }
+        return json.dumps(log)
+        
+      
+# Logstash configuration
+LOGSTASH_HOST = 'localhost'  # Change if Logstash is on another machine
+LOGSTASH_PORT = 5044         # Default Logstash port for Beats input
 # Database Configuration
 db_config = {
     'user': 'NewUser',        # Your MySQL username
@@ -10,7 +31,20 @@ db_config = {
     'host': 'localhost',
     'database': 'testDBusers'   # Your database name
 }
-# ... (Your existing routes: signup, login, login_safe, search)
+
+logger = logging.getLogger('vulnapp_logger')
+logger.setLevel(logging.DEBUG)
+
+# Add a SocketHandler for Logstash
+logger.addHandler(logstash.LogstashHandler('localhost', 5959,version=1))
+#logstash_handler = logging.handlers.SocketHandler(LOGSTASH_HOST, LOGSTASH_PORT)
+#logstash_handler.setFormatter(CustomLogstashFormatter())
+#logger.addHandler(logstash_handler)
+#logger.setLevel(logging.INFO)
+#handler = logging.FileHandler('/home/ubuntu/VulnApp/infos_alerts.log') # Spécifiez le chemin du fichier
+#formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+#handler.setFormatter(formatter)
+#logger.addHandler(handler)
 
 # Route for handling the landing page
 @app.route('/')
@@ -26,6 +60,9 @@ def signup():
         email = request.form['email']
         username = request.form['username']
         password = request.form['password']
+        
+        print("new User")
+        logger.info('New user signup: %s, %s, %s, %s, %s ',firstName, lastName, email, username, password)
 
         # Hash the password for security
         #hashed_password = generate_password_hash(password, method='sha256')
@@ -47,10 +84,13 @@ def signup():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     msg=''
+   
     print(request.form)
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        
+        logger.info('User login attempt: %s', username)
 
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor(dictionary=True)
@@ -64,12 +104,15 @@ def login():
 
         if user and user[0]['isModerator']==1:
             # User is authenticated
+            logger.info('Successful admin login attempt with the username: %s', username)
             return redirect('/admin')
         elif user:
+            logger.info('Successful login attempt with the username: %s', username)
             return redirect('/user')
         else:
             # Invalid credentials
             print("Invalid Credentials")
+            logger.info('Failed login attempt with the username: %s', username)
             return render_template('login.html',msg='Login Failed, Invalid Credentials !!')
 
     return render_template('login.html',msg=msg)
@@ -84,9 +127,11 @@ def login_safe():
         List_sqli = ["'",'"','%','-']
         for let in username:
             if let in List_sqli:
+            	logger.warning('An attempt for SQL injection has been made with %s', username)
                 return render_template('login_safe.html',msg = 'I do not want SQLi !!, wrong characters')
         for let in password:
             if let in List_sqli:
+            	logger.warning('An attempt for SQL injection has been made with %s', username)
                 return render_template('login_safe.html',msg = 'I do not want SQLi !!, wrong characters')
 
         conn = mysql.connector.connect(**db_config)
@@ -100,12 +145,15 @@ def login_safe():
 
         if user and user[0]['isModerator']==1:
             # User is authenticated
+            logger.info('Successful admin login attempt with the username: %s', username)
             return redirect('/admin')
         elif user:
+            logger.info('Successful login attempt with the username: %s', username)
             return redirect('/user')
         else:
             # Invalid credentials
             print("Invalid Credentials")
+            logger.info('Failed login attempt with the username: %s', username)
             return render_template('login.html',msg='Login Failed, Invalid Credentials !!')
 
     return render_template('login_safe.html')

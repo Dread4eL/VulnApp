@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>XSS Challenge</title>
-</head>
-<body>
-    <h1>Cross-Site Scripting (XSS) Challenge</h1>
-    <p>Can you inject and execute your JavaScript code?</p>
-    <form method="POST" action="/submit_comment">  </form> 
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}XSS Challenge{% endblock %}
+
+{% block content %}
+<h1>Cross-Site Scripting (XSS) Challenge</h1>
+<p>Can you inject and execute your JavaScript code?</p>
+<form method="POST" action="/submit_comment">
+  <input type="text" name="comment" placeholder="Enter Comment">
+  <button type="submit">Submit</button>
+</form>
+{% endblock %}
