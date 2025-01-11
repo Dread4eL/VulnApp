@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vulnerability Application</title>
+    <style>
+        body {
+            /* Fond d'écran */
+            background-image: url("{{ url_for('static', filename='images/cybersecurity_background.jpg') }}"); 
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* Fixe le fond */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 4em;
+            color: #fff; /* Couleur du texte */
+            text-shadow: 0 0 10px rgba(0,0,0,0.5); /* Ajoute une ombre au texte */
+        }
+
+        .enter-button {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 1.5em;
+            background-color: #007bff; /* Couleur du bouton */
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* Ajoute une transition */
+        }
+
+        .enter-button:hover {
+            background-color: #0056b3; /* Change la couleur au survol */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Vulnerability Application</h1>
+        <br>
+        <a href="{{ url_for('index') }}" class="enter-button">Enter</a>
+    </div>
+</body>
+</html>
