@@ -48,6 +48,10 @@ logger.addHandler(logstash.LogstashHandler('localhost', 5959,version=1))
 
 # Route for handling the landing page
 @app.route('/')
+def landing_page():
+    return render_template('landing_page.html')
+
+@app.route('/home')
 def index():
     return render_template('index.html')
 
