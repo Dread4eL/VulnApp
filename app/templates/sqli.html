@@ -5,8 +5,18 @@
 {% block content %}
 <h1>SQL Injection Challenge</h1>
 <p>Try to find and exploit the SQL injection vulnerability!</p>
-<form method="POST" action="/search">
+<form method="POST" action="/sqli">
   <input type="text" name="username" placeholder="Enter Username">
   <button type="submit">Search</button>
 </form>
+{% if users %}
+<h3>Search Results:</h3>
+<ul>
+  {% for user in users %}
+  <li>{{ user.firstName | safe }} - {{ user.lastName }} - {{ user.email }} - {{ user.username }}</li>
+  {% endfor %}
+</ul>
+{% elif msg %}
+<p style="color: red;" >{{ msg }}<p>
+{% endif %}
 {% endblock %}

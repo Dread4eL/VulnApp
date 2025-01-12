@@ -1,0 +1,23 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<h2>Utilitaire Ping</h2>
+    <form method="POST">
+        <label for="host">Hôte :</label>
+        <input type="text" name="host" id="host" required>
+        <button type="submit">Ping</button>
+    </form>
+    {% if result %}
+        <h2>Résultats :</h2>
+        <pre>{{ result }}</pre>
+    {% endif %}
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+{% if msg %}
+<h3>{{ msg }}</h3>
+{% endif %}
+{% endblock %}

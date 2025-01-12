@@ -13,20 +13,39 @@
             background-color: #333;
             padding: 10px 0;
             border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
         .navbar a {
-            float: left;
             color: white;
             text-align: center;
             padding: 12px;
-            margin-left: 5px;
             text-decoration: none;
             font-size: 17px;
+            border-radius: 4px;
+            margin-left: 5px;
         }
         .navbar a:hover {
             background-color: #ddd;
             color: black;
+        }
+        .auth-buttons {
+            margin-left: auto;
+            margin-right: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        .auth-buttons a {
+            font-size: 14px;
+            padding: 8px 10px;
+            background-color: #444;
+            color: white;
+            text-decoration: none;
             border-radius: 4px;
+        }
+        .auth-buttons a:hover {
+            background-color: #555;
         }
         .container {
             max-width: 1200px;
@@ -38,7 +57,7 @@
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        input[type="text"], input[type="password"], input[type="email"],input[type="number"] {
+        input[type="text"], input[type="password"], input[type="email"], input[type="number"] {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
@@ -46,7 +65,7 @@
             border-radius: 4px;
             box-sizing: border-box;
         }
-        input[type="submit"] {
+        input[type="submit"], button {
             width: 100%;
             padding: 10px;
             background: #333;
@@ -55,16 +74,7 @@
             border-radius: 4px;
             cursor: pointer;
         }
-        button {
-            width: 100%;
-            padding: 10px;
-            background: #333;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
+        input[type="submit"]:hover, button:hover {
             background: #555;
         }
         .search-container {
@@ -110,17 +120,38 @@
 </head>
 <body>
   <div class="navbar">
-    <a href="/">Home</a>
-    <a href="/login">Login</a>
-    <a href="/login_safe">Safe Login</a>
-    <a href="/signup">Signup</a>
+    <!-- Left-side links -->
+    <a href="/home">Home</a>
     <a href="/search">Search</a>
     <a href="/sqli">SQLi Challenge</a>
     <a href="/xss">XSS Challenge</a>
+    <a href="/ping">Command Injection</a>
+    
+    <!-- Right-side authentication buttons -->
+    <div class="auth-buttons">
+        {% if session.get('username') %}
+            <a href= {{ "/user" if session.get('isAdmin')==0 else "/admin" }} >My Account</a>
+            <a href="/logout">Logout</a>
+            
+        {% else %}
+            <a href="/login">Login</a>
+            <a href="/signup">Signup</a>
+        {% endif %}
+    </div>
   </div>
+  
   <div class="container">
     {% block content %}
     {% endblock %}
   </div>
+</center>
+
+<style>
+    body {
+      background-image: url("{{ url_for('static', filename='images/cybersecurity_background.jpg') }}");
+      background-repeat: no-repeat; /* Empêche l'image de se répéter */
+      background-size: cover; /* Ajuste l'image pour couvrir toute la page */
+    }
+  </style>
 </body>
 </html>

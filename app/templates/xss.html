@@ -1,12 +1,25 @@
+
 {% extends 'base.html' %}
 
 {% block title %}XSS Challenge{% endblock %}
 
 {% block content %}
+{% autoescape true %}
 <h1>Cross-Site Scripting (XSS) Challenge</h1>
 <p>Can you inject and execute your JavaScript code?</p>
+<!-- Even if you can't inject xss doesn't mean you can't inject anything -->
 <form method="POST" action="/submit_comment">
   <input type="text" name="comment" placeholder="Enter Comment">
   <button type="submit">Submit</button>
 </form>
+<div id="comments">
+    <ul>
+        {% for comment in comments %}
+            <li>
+                <strong>{{ comment['username'] }}:</strong> {{ comment['comment'] }}
+            </li>
+        {% endfor %}
+    </ul>
+  </div>
+{% endautoescape %}
 {% endblock %}
