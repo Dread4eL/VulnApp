@@ -1,6 +1,9 @@
 body {
+<<<<<<< HEAD
 	  padding-top: 40px;
 	  padding-bottom: 40px;
+=======
+>>>>>>> refs/remotes/origin/main
     font-family: 'Arial', sans-serif; /* Police moderne et lisible */
     background-color: #f4f7fc; /* Fond clair pour un look moderne */
     padding-top: 40px;
@@ -8,9 +11,12 @@ body {
 }
 
 #form-signin {
+<<<<<<< HEAD
 	  max-width: 330px;
 	  padding: 15px;
 	  margin: 0 auto;
+=======
+>>>>>>> refs/remotes/origin/main
     max-width: 360px; /* Légèrement plus large pour une meilleure lisibilité */
     padding: 20px;
     margin: 0 auto;
@@ -18,8 +24,17 @@ body {
     border-radius: 8px; /* Coins arrondis pour un look plus doux */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre douce pour plus de profondeur */
 }
-#form-signin .form-signin-heading,
+
+#form-signin .form-signin-heading {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 24px;
+    color: #4CAF50; /* Couleur verte moderne */
+    font-weight: 600;
+}
+
 #form-signin .checkbox {
+<<<<<<< HEAD
 	  margin-bottom: 10px;
 
 #form-signin .form-signin-heading {
@@ -32,11 +47,14 @@ body {
 
 #form-signin .checkbox {
 	  font-weight: normal;
+=======
+>>>>>>> refs/remotes/origin/main
     margin-bottom: 15px;
     font-weight: normal;
 }
 
 #form-signin .form-control {
+<<<<<<< HEAD
 	  position: relative;
 	  height: auto;
 	  -webkit-box-sizing: border-box;
@@ -44,6 +62,8 @@ body {
 	          box-sizing: border-box;
 	  padding: 10px;
 	  font-size: 16px;
+=======
+>>>>>>> refs/remotes/origin/main
     position: relative;
     height: auto;
     padding: 15px;
@@ -55,12 +75,15 @@ body {
 
 /* Effet au focus sur les champs de saisie */
 #form-signin .form-control:focus {
+<<<<<<< HEAD
 	  z-index: 2;
 }
 #form-signin input[type="email"] {
 	  margin-bottom: -1px;
 	  border-bottom-right-radius: 0;
 	  border-bottom-left-radius: 0;
+=======
+>>>>>>> refs/remotes/origin/main
     border-color: #4CAF50; /* Bordure verte au focus */
     box-shadow: 0 0 8px rgba(76, 175, 80, 0.3); /* Légère ombre verte */
     z-index: 2;
@@ -69,9 +92,12 @@ body {
 /* Champs de saisie spécifiques */
 #form-signin input[type="email"],
 #form-signin input[type="password"] {
+<<<<<<< HEAD
 	  margin-bottom: 10px;
 	  border-top-left-radius: 0;
 	  border-top-right-radius: 0;
+=======
+>>>>>>> refs/remotes/origin/main
     margin-bottom: 15px; /* Espacement entre les champs */
 }
 
@@ -111,7 +137,11 @@ body {
 .btn {
     transition: transform 0.2s ease; /* Ajoute une transition sur la propriété transform */
   }
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> refs/remotes/origin/main
   .btn:hover {
     transform: scale(1.1); /* Agrandit légèrement le bouton au survol */
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Ajoute une ombre au survol */
