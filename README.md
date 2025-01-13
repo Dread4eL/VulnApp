@@ -24,7 +24,7 @@ VulnApp is an Information Security Management project that demonstrates real-tim
 #### 1. Clone the repository
 
 ```bash
-git clone [invalid URL removed]
+git clone https://github.com/Dread4eL/VulnApp.git
 cd VulnApp
 ```
 
@@ -177,11 +177,6 @@ Test the configuration:
 sudo /usr/share/logstash/bin/logstash --path.settings /etc/logstash -t
 ```
 
-Start the Logstash service:
-
-```bash
-sudo systemctl start logstash
-```
 
 #### 5. Start the Services
 
