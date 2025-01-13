@@ -53,8 +53,9 @@ def landing_page():
 
 @app.route('/home')
 def index():
+    ip = "10.212.8.52"
     logger.info('Welcome home')
-    return render_template('index.html')
+    return render_template('index.html',ip=ip)
 
 # Signup Route
 @app.route('/signup', methods=['GET', 'POST'])
@@ -141,12 +142,12 @@ def login():
             if let in List_sqli:
                 print('SQLi attempt')
                 logger.warning('An attempt for SQL injection has been made with %s', username, extra={'attack_type':'SQLi'})
-                return render_template('login.html',msg = 'I do not want SQLi !!, wrong characters')
+                return render_template('login.html',msg = 'Nice try but some characters are not authorized here, try somewhere else !')
         for let in password:
             if let in List_sqli:
                 print('SQLi attempt')
                 logger.warning('An attempt for SQL injection has been made with %s', username, extra={'attack_type':'SQLi'})
-                return render_template('login.html',msg = 'I do not want SQLi !!, wrong characters')
+                return render_template('login.html',msg = 'Nice try but some characters are not authorized here, try somewhere else !')
 
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor(dictionary=True)
@@ -191,7 +192,7 @@ def search():
         logger.info("search made with this input: ",username_search)
         print(query)
 
-        cursor.execute(query)
+        cursor.execute(query,multi=True)
 
         users = cursor.fetchall()
 
@@ -214,7 +215,7 @@ def user_page():
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
     if 'username' not in session:
-        logger.warning('Someone tried to acces the page /user without being authenticated', extra={'attack_type':'Bypass'})
+        logger.warning('Someone tried to acces the page /admin without being authenticated', extra={'attack_type':'Bypass'})
         return render_template('/login.html',msg='You are not authenticated')
     elif session['isAdmin']==0:
     	return redirect('/user')
@@ -363,7 +364,7 @@ def ping():
         # Validation de l'entrée pour prévenir l'injection de commandes
         pattern_ip = r"(\b25[0-5]|\b2[0-4][0-9]|\b[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}"
         if not host or not re.search(pattern_ip,host):
-            error = "Hôte invalide. Veuillez saisir un nom d'hôte alphanumérique."
+            error = "Invalid host entered. Did you want to exploit this website ?"
             logger.warning('Potential Command Injection attempt detected: %s', host,extra={'attack_type':'Command Injection'})
             return render_template('ping.html', error=error)
 
